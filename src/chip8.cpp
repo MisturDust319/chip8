@@ -1,4 +1,5 @@
 #include <cstdint>
+#include <cstring>
 #include <fstream>
 #include <chrono>
 #include <random>
@@ -81,4 +82,19 @@ void Chip8::loadROM(char const* filename)
         // delete the buffer
         delete[] buffer;
     }
+}
+
+void Chip8::OP_00E0()
+{
+    // memset will fill the video memory with 0s
+    memset(video, 0, sizeof(video));
+}
+
+void Chip8::OP_00EE()
+{
+    // decrement the stack pointer so that it points to the last
+    // PC pushed onto it
+    --sp;
+    // set the PC to the old PC now stored on the stack top
+    pc = stack[sp];
 }

@@ -38,7 +38,7 @@ public:
 
     // RNG values
     // a basic RNG generator, seeded with the system clock
-    std::std::default_random_engine  randGen;
+    std::default_random_engine  randGen;
     // a uniform int distribution will produce ints in a range [a,b]
     // we use [0,255]
     std::uniform_int_distribution<uint8_t> randByte;
@@ -48,6 +48,12 @@ public:
 
     // METHODS
     void loadROM(char const* filename);
+
+    // OPCODES
+    // CLS: Clear the screen
+    void OP_00E0();
+    // RET: Return from a subroutine
+    void OP_00EE();
 };
 
 #endif
