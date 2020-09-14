@@ -51,7 +51,8 @@ Chip8::Chip8()
         memory[FONTSET_START_ADDRESS + i] = fontset[i];
     }
 
-    randByte = std::uniform_int_distribution<uint8_t>(0, 255);
+    // the byte will be given a random int in the range [0,255]
+    randByte = std::uniform_int_distribution<uint8_t>(0, 255U);
 }
 
 void Chip8::loadROM(char const* filename)

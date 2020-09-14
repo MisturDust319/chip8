@@ -37,8 +37,10 @@ public:
     uint16_t opcode;
 
     // RNG values
-    // this is seeded with
-    std::default_random_engine randGen;
+    // a basic RNG generator, seeded with the system clock
+    std::std::default_random_engine  randGen;
+    // a uniform int distribution will produce ints in a range [a,b]
+    // we use [0,255]
     std::uniform_int_distribution<uint8_t> randByte;
 
     // CONSTRUCTORS
