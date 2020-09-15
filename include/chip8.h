@@ -56,6 +56,9 @@ public:
     void OP_00EE();
     // JP: jumps to location nnn, where nnn are the last three values of the opcode
     void OP_1nnn();
+    // CALL: call a subroutine at nnn
+    void OP_2nnn();
+    
 };
 
 #endif

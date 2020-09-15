@@ -103,7 +103,21 @@ void Chip8::OP_1nnn()
 {
     // note that the opcode is set outside this function
     uint16_t address = opcode & 0xFFFu; // the u signifies an unsigned int
+    // using the bitwise and with 0xFFF ensures nnn will never be greater than FFF
+
     // set the program counter to the address
     // note we don't need to save the previous PC with a jump
+    pc = address;
+}
+
+void Chip8::OP_2nnn()
+{
+    // note that the opcode is set outside this function
+    uint16_t address = opcode & 0xFFFu; // the u signifies an unsigned int
+    // using the bitwise and with 0xFFF ensures nnn will never be greater than FFF
+
+    // unlike jump, calling a subrouting stores the current PC value on the stack
+    stack[pc] = pc;
+    ++sp;
     pc = address;
 }
