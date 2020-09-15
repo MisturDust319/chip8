@@ -98,3 +98,12 @@ void Chip8::OP_00EE()
     // set the PC to the old PC now stored on the stack top
     pc = stack[sp];
 }
+
+void Chip8::OP_1nnn()
+{
+    // note that the opcode is set outside this function
+    uint16_t address = opcode & 0xFFFu; // the u signifies an unsigned int
+    // set the program counter to the address
+    // note we don't need to save the previous PC with a jump
+    pc = address;
+}

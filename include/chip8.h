@@ -54,6 +54,8 @@ public:
     void OP_00E0();
     // RET: Return from a subroutine
     void OP_00EE();
+    // JP: jumps to location nnn, where nnn are the last three values of the opcode
+    void OP_1nnn();
 };
 
 #endif
