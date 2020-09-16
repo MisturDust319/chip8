@@ -117,7 +117,53 @@ void Chip8::OP_2nnn()
     // using the bitwise and with 0xFFF ensures nnn will never be greater than FFF
 
     // unlike jump, calling a subrouting stores the current PC value on the stack
-    stack[pc] = pc;
+    // push the current PC onto the stack, and increment the stack pointer
+    stack[pc] = pc; 
     ++sp;
     pc = address;
+}
+
+void Chip8::OP_3xkk()
+{
+    // the data for this operation is stored in the opcode and must be extracted
+    // The first four bits (nibble) of the first byte is 3
+    // the second nibble is Vx
+    //  it needs to be right shifted 8 times to fit into a single byte
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    // the whole second byte is used to store kk
+    uint8_t kk = opcode & 0x00FFu;
+
+    // if Vx and kk are equal, skip the next instruction
+    if (registers[Vx] == kk)
+    {
+        pc += 2;
+    }
+}
+
+void Chip8::OP_4xkk()
+{
+    // grab Vx
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    // grab kk
+    uint8_t kk = opcode & 0x00FFu;
+
+    // if Vx and kk are equal, skip the next instruction
+    if (registers[Vx] != kk)
+    {
+        pc += 2;
+    }
+}
+
+void Chip8::OP_5xy0()
+{
+    // the first nibble is 5
+    // the second nibble is Vx, it must be shifted 8 times to fit into a byte
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    // the third nibble is Vy, 
+    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
+
+    if (registers[Vx] == registers[Vy])
+    {
+        pc += 2;
+    }
 }
