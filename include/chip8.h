@@ -58,13 +58,15 @@ public:
     void OP_1nnn();
     // CALL: call a subroutine at nnn
     void OP_2nnn();
-    // SE Vx, byte: skip the next instruction if Vx is equal to byte kk
+    // SE Vx, kk: skip the next instruction if Vx is equal to byte kk
     void OP_3xkk();
-    // SNE Vx, byte: skip the next instruction if Vx is NOT equal to byte kk
+    // SNE Vx, kk: skip the next instruction if Vx is NOT equal to byte kk
     void OP_4xkk();
     // SE Vx, Vy: compare register Vx to register Vy
     // if they are equal, skip the next instruction
     void OP_5xy0();
+    // LD Vx, kk: load the value in byte kk into Vx
+    void OP_6xkk();
 };
 
 #endif
