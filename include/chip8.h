@@ -69,6 +69,8 @@ public:
     void OP_6xkk();
     // ADD Vx, kk: Add byte kk to Vx
     void OP_7xkk();
+    // LD Vx, Vy: set Vx = Vy
+    void OP_8xy0();
 };
 
 #endif

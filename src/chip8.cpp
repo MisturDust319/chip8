@@ -190,3 +190,14 @@ void Chip8::OP_7xkk()
     registers[Vx] += kk;
 }
 
+void Chip8::OP_8xy0()
+{
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00) >> 8u;
+    // get Vy, which is store in the 4th nibble
+    // and must be shifted to properly fit in a byte
+    uint8_t Vy = (opcode & 0x00F0) >> 4u;
+
+    // set Vx = Vy
+    registers[Vx] = registers[Vy];
+}
