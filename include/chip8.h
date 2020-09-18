@@ -67,6 +67,8 @@ public:
     void OP_5xy0();
     // LD Vx, kk: load the value in byte kk into Vx
     void OP_6xkk();
+    // ADD Vx, kk: Add byte kk to Vx
+    void OP_7xkk();
 };
 
 #endif

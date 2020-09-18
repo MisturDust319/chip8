@@ -179,3 +179,14 @@ void Chip8::OP_6xkk()
     registers[Vx] = kk;
 }
 
+void Chip8::OP_7xkk()
+{
+    // grab Vx
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    // grab byte kk
+    uint8_t kk = opcode & 0x00FFu;
+
+    // add kk to register Vx
+    registers[Vx] += kk;
+}
+
