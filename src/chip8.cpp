@@ -213,3 +213,14 @@ void Chip8::OP_8xy1()
     // set Vx = Vx | Vy
     registers[Vx] |= register[Vy];
 }
+
+void Chip8::OP_8xy2()
+{
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00) >> 8u;
+    // get Vy, which is store in the 4th nibble
+    uint8_t Vy = (opcode & 0x00F0) >> 4u;
+
+    // set Vx = Vx & Vy
+    registers[Vx] &= register[Vy];
+}
