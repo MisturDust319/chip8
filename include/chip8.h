@@ -71,6 +71,8 @@ public:
     void OP_7xkk();
     // LD Vx, Vy: set Vx = Vy
     void OP_8xy0();
+    // OR Vx, Vy: Vx = Vx | Vy ()
+    void OP_8xy1():
 };
 
 #endif
