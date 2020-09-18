@@ -211,7 +211,7 @@ void Chip8::OP_8xy1()
     uint8_t Vy = (opcode & 0x00F0) >> 4u;
 
     // set Vx = Vx | Vy
-    registers[Vx] |= register[Vy];
+    registers[Vx] |= registers[Vy];
 }
 
 void Chip8::OP_8xy2()
@@ -222,5 +222,5 @@ void Chip8::OP_8xy2()
     uint8_t Vy = (opcode & 0x00F0) >> 4u;
 
     // set Vx = Vx & Vy
-    registers[Vx] &= register[Vy];
+    registers[Vx] &= registers[Vy];
 }

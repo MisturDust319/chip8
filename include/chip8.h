@@ -72,7 +72,7 @@ public:
     // LD Vx, Vy: set Vx = Vy
     void OP_8xy0();
     // OR Vx, Vy: Vx = Vx | Vy
-    void OP_8xy1():
+    void OP_8xy1();
     // AND Vx, Vy: Vx = Vx & Vy
     void OP_8xy2();
 };
