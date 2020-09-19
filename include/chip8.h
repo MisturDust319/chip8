@@ -75,6 +75,8 @@ public:
     void OP_8xy1();
     // AND Vx, Vy: Vx = Vx & Vy
     void OP_8xy2();
+    // XOR Vx, Vy: Vx = Vx ^ Vy
+    void OP_8xy3();
 };
 
 #endif
