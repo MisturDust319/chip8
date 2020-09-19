@@ -77,6 +77,10 @@ public:
     void OP_8xy2();
     // XOR Vx, Vy: Vx = Vx ^ Vy
     void OP_8xy3();
+    // ADD Vx, Vy: Vx = Vx + Vy, carry is stored in VF
+    void OP_8xy4();
+    // SUB Vx, Vy: Vx = Vx - Vy, set VF = NOT borrow
+    void OP_8xy5();
 };
 
 #endif

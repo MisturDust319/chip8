@@ -235,3 +235,54 @@ void Chip8::OP_8xy3()
     // set Vx = Vx ^ Vy
     registers[Vx] ^= registers[Vy];
 }
+
+void Chip8::OP_8xy4()
+{
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00) >> 8u;
+    // get Vy
+    uint8_t Vy = (opcode & 0x00F0) >> 4u;
+
+    // get the sum of Vx and Vy
+    uint16_t sum = registers[Vx] + registers[Vy];
+
+    // if the sum is greater than something that can fit in one bit...
+    if (sum > 255u)
+    {
+        // set the carry bit as 1 so it may be used later
+        registers[0xF] = 1; // 0xF is the address of VF, the carry register
+    }
+    else
+    {
+        // otherwise, set the carry to 0
+        registers[0xF] = 0;
+    }
+
+    // set Vx with the sum
+    registers[Vx] = sum & 0xFFu;
+    // masking sum with FF ensures sum can't surpass 255
+}
+
+void Chip8::OP_8xy5()
+{
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00) >> 8u;
+    // get Vy
+    uint8_t Vy = (opcode & 0x00F0) >> 4u;
+
+    // if Vx > Vy, then set VF to be the NEGATION of the carry value
+    if (registers[Vx] > registers[Vy])
+    {
+        // so if we DON'T carry,
+        // set carry to 1
+        registers[0xF] = 1;
+    }
+    // otherwise set the carry bit to 0
+    else
+    {
+        registers[0xF] = 0;
+    }
+
+    // then set the final register value
+    registers[Vx] -= registers[Vy];
+}
