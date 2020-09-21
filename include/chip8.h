@@ -81,6 +81,9 @@ public:
     void OP_8xy4();
     // SUB Vx, Vy: Vx = Vx - Vy, set VF = NOT borrow
     void OP_8xy5();
+    // SHR Vx: logical shift right Vx by 1 (div by 2)
+    // the least sig bit is saved in VF
+    void OP_8xy6();    
 };
 
 #endif

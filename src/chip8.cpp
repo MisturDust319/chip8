@@ -286,3 +286,15 @@ void Chip8::OP_8xy5()
     // then set the final register value
     registers[Vx] -= registers[Vy];
 }
+
+void Chip8::OP_8xy6()
+{
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+
+    // save LSB in VF
+    registers[0xF] = (registers[Vx] & 0x1u);
+
+    // right shift Vx
+    registers[Vx] >>= 1;
+}
