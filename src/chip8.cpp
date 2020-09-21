@@ -321,3 +321,15 @@ void Chip8::OP_8xy7() {
     // then set the final register value
     registers[Vx] = registers[Vy] - registers[Vx];
 }
+
+void Chip8::OP_8xyE()
+{
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+
+    // save MSB in VF
+    registers[0xF] = (registers[Vx] & 0x80u);
+
+    // left shift Vx
+    registers[Vx] <<= 1;
+}

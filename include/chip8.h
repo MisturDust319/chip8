@@ -86,6 +86,9 @@ public:
     void OP_8xy6();
     // SUBN Vx, Vy: Vx = Vy - Vx, with VF set to NOT borrow
     void OP_8xy7();
+    // SHL Vx {, Vy}: Left shift Vx by 1, ignoring Vy
+    // the most sig bit is stored in VF
+    void OP_8xyE();
 };
 
 #endif
