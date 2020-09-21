@@ -298,3 +298,26 @@ void Chip8::OP_8xy6()
     // right shift Vx
     registers[Vx] >>= 1;
 }
+
+void Chip8::OP_8xy7() {
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00) >> 8u;
+    // get Vy
+    uint8_t Vy = (opcode & 0x00F0) >> 4u;
+
+    // if Vy > Vx, then set VF to be the NEGATION of the carry value
+    if (registers[Vy] > registers[Vx])
+    {
+        // so if we DON'T carry,
+        // set carry to 1
+        registers[0xF] = 1;
+    }
+    // otherwise set the carry bit to 0
+    else
+    {
+        registers[0xF] = 0;
+    }
+
+    // then set the final register value
+    registers[Vx] = registers[Vy] - registers[Vx];
+}
