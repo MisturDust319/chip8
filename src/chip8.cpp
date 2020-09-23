@@ -365,3 +365,14 @@ void Chip8::OP_Bnnn()
     // increment the PC by V0 + address
     pc = registers[0] + address;
 }
+
+void Chip8::OP_Cxkk()
+{
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    // get kk
+    uint8_t kk = opcode & 0x00FFu;
+
+    // set Vx to a random byte of max size kk
+    registers[Vx] = randByte(randGen) & kk;
+}

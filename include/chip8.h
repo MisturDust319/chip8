@@ -94,6 +94,8 @@ public:
     void OP_Annn();
     // JP V0, addr: jump to location addr + V0
     void OP_Bnnn();
+    // RND Vx, kk: Vx = random byte & byte kk
+    void OP_Cxkk();
 };
 
 #endif
