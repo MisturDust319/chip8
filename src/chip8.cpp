@@ -333,3 +333,19 @@ void Chip8::OP_8xyE()
     // left shift Vx
     registers[Vx] <<= 1;
 }
+
+void Chip8::OP_9xy0()
+{
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    // get Vy
+    uint8_t Vy = (opcode & 0x00F0u) >> 4u;
+
+    // if Vx != Vy, skip the next instruction
+    if (registers[Vx] != registers[Vy])
+    {
+        // this is done by incrementing the PC by 2
+        // the number of bytes an instruction occupies in memory
+        pc += 2;
+    }
+}

@@ -15,7 +15,7 @@ public:
     // 16 bit index register
     // used as index for memory addresses
     uint16_t index{};
-    // program counter register
+    // the program counter register holds the address of the next instruction in memory
     uint16_t pc{};
     // a call stack that can hold up to 16 PC values
     uint16_t stack[16]{};
@@ -89,6 +89,8 @@ public:
     // SHL Vx {, Vy}: Left shift Vx by 1, ignoring Vy
     // the most sig bit is stored in VF
     void OP_8xyE();
+    // SNE Vx, Vy: skips the next instruction if Vx != Vy
+    void OP_9xy0();
 };
 
 #endif
