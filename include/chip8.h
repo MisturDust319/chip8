@@ -12,8 +12,7 @@ public:
     uint8_t registers[16]{};
     // system memory
     uint8_t memory[4096]{};
-    // 16 bit index register
-    // used as index for memory addresses
+    // 16 bit index register, used as index for memory addresses
     uint16_t index{};
     // the program counter register holds the address of the next instruction in memory
     uint16_t pc{};
@@ -91,6 +90,8 @@ public:
     void OP_8xyE();
     // SNE Vx, Vy: skips the next instruction if Vx != Vy
     void OP_9xy0();
+    // LD I, addr: load addr into I, the index register
+    void OP_Annn();
 };
 
 #endif

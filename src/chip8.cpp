@@ -349,3 +349,11 @@ void Chip8::OP_9xy0()
         pc += 2;
     }
 }
+
+void Chip8::OP_Annn()
+{
+    // get the memory address from the opcode
+    uint16_t address = opcode & 0x0FFFu;
+    // store it in index, the I register
+    index = address;
+}
