@@ -92,6 +92,8 @@ public:
     void OP_9xy0();
     // LD I, addr: load addr into I, the index register
     void OP_Annn();
+    // JP V0, addr: jump to location addr + V0
+    void OP_Bnnn();
 };
 
 #endif

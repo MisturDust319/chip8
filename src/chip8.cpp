@@ -357,3 +357,11 @@ void Chip8::OP_Annn()
     // store it in index, the I register
     index = address;
 }
+
+void Chip8::OP_Bnnn()
+{
+    // grab address nnn
+    uint16_t address = opcode & 0x0FFFu;
+    // increment the PC by V0 + address
+    pc = registers[0] + address;
+}
