@@ -38,6 +38,9 @@ uint8_t fontset[FONTSET_SIZE] =
 	0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 };
 
+uint8_t VIDEO_WIDTH = 32;
+uint8_t VIDEO_HEIGHT = 64;
+
 Chip8::Chip8()
     : randGen(std::chrono::system_clock::now().time_since_epoch().count())
 {
@@ -375,4 +378,63 @@ void Chip8::OP_Cxkk()
 
     // set Vx to a random byte of max size kk
     registers[Vx] = randByte(randGen) & kk;
+}
+
+void Chip8::OP_Dxyn()
+{
+    // the draw function 
+    
+    // Get Vx, Vy
+    uint8_t Vx = (opcode & 0x0F00) >> 8u;
+    uint8_t Vy = (opcode & 0x00F0) >> 4u;
+    // The final nibble is the height
+    uint8_t n = opcode & 0x000Fu;
+
+    // we wrap the sprite if it extends beyond the screen boundaries
+    uint8_t xPos = registers[Vx] % VIDEO_WIDTH;
+    uint8_t yPos = registers[Vy] % VIDEO_HEIGHT;
+
+    // by default, set the collision register to 0
+    registers[0xF] = 0;
+
+    for (unsigned int row = 0; row < n; ++row)
+    {
+        // grab the current byte from memory
+        // we start at the position in memory pointed to by the I register
+        // offset by the current row
+        uint8_t spriteByte = memory[index + row];
+        
+        // now we iterate over the sprite byte
+        // in chip 8, all sprites are 8 pixels wide
+        // which is why they fit in a single byte
+        for (unsigned int col = 0; col < 8; ++col)
+        {
+            // isolate the pixel for the current row and column
+            // note how we do this by shifting the masking constant
+            // NOT the sprite byte
+            uint8_t spritePixel = spriteByte & (0x80u >> col);
+            // calculate the screen pixel we will display the sprite pixel on
+            // NOTE: the screen pixel is a pointer, hence the dereference operator
+            uint32_t* screenPixel = &video[(xPos + col) + (yPos + row) * VIDEO_WIDTH];
+            
+            // if the sprite pixel is to be turned on,
+            // we need to turn it off
+            // we may need to set the collision register
+            if (spritePixel)
+            {
+                // check if the screen pixel is on or off
+                // remember that we use 0xFFFFFFFF for on, and 0x00000000 for off
+                // this is to simplify working with SDL, the rendering API
+                if (*screenPixel == 0xFFFFFFFF)
+                {
+                    // if there is a pixel, then we have a collision
+                    // and we should set the collision bit to 1
+                    registers[0xF] = 1;
+                }
+
+                // toggle the sprite pixel with XOR
+                *screenPixel ^= 0xFFFFFFFF;
+            }
+        }
+    }
 }

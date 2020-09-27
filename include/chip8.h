@@ -6,7 +6,7 @@
 #include <random>
 
 class Chip8
-{
+{   
 public:
     // CPU registers
     uint8_t registers[16]{};
@@ -96,6 +96,10 @@ public:
     void OP_Bnnn();
     // RND Vx, kk: Vx = random byte & byte kk
     void OP_Cxkk();
+    // DRW Vx, Vy, n: draw n-byte sprite (n is analogous to the height) 
+    // starting in memory location I, at position (Vx, Vy) in the screen
+    // set VF = collision
+    void OP_Dxyn();
 };
 
 #endif
