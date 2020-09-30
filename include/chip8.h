@@ -100,6 +100,9 @@ public:
     // starting in memory location I, at position (Vx, Vy) in the screen
     // set VF = collision
     void OP_Dxyn();
+    // SKP Vx: skip the next instruction
+    // if the key with value Vx is pressed
+    void OP_Ex9E();
     // SKNP Vx: skip the next instruction
     // if the key in register Vx is NOT pressed
     void OP_ExA1();
