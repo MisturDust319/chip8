@@ -438,3 +438,18 @@ void Chip8::OP_Dxyn()
         }
     }
 }
+
+void Chip8::OP_ExA1()
+{
+    // get Vx
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    // get the value of Vx
+    // this will be used to index the keypad
+    uint8_t key = registers[Vx];
+
+    // check the keypad
+    if (!keypad[key])
+    {
+        pc += 2;
+    }
+}
