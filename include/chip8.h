@@ -113,6 +113,8 @@ public:
     void OP_Fx0A();
     // LD DT, Vx: set delay timer = Vx
     void OP_Fx15();
+    // LD ST, Vx: set sound timer = Vx
+    void OP_Fx18();
 };
 
 #endif
