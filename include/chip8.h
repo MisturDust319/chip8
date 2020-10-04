@@ -108,6 +108,9 @@ public:
     void OP_ExA1();
     // LD Vx, DT: set Vx = delay timer value
     void OP_Fx07();
+    // LD Vx, K: wait for a key press
+    // store the value in Vx
+    void OP_Fx0A();
 };
 
 #endif
