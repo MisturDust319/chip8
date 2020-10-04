@@ -115,6 +115,11 @@ public:
     void OP_Fx15();
     // LD ST, Vx: set sound timer = Vx
     void OP_Fx18();
+    // ADD I, Vx: set I = I + Vx
+    void OP_Fx1E();
+    // LD F, Vx: point I to the location of the sprite
+    // for the digit who's value is in Vx
+    void OP_Fx29();
 };
 
 #endif
