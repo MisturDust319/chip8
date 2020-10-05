@@ -584,7 +584,12 @@ void Chip8::OP_Fx1E()
 void Chip8::OP_Fx29()
 {
     uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    // get the number stored in Vx
     uint8_t digit = registers[Vx];
 
+    // All font sprites are stored in a dedicated range in memory
+    // and each sprite is 5 bytes each
+    // so, to get a char, we multiply the digit by 5,
+    // and offset it by the start address
     index = FONTSET_START_ADDRESS + (5 * digit);
 }
