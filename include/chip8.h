@@ -120,6 +120,9 @@ public:
     // LD F, Vx: point I to the location of the sprite
     // for the digit who's value is in Vx
     void OP_Fx29();
+    // LD B, Vx: store the Binary Coded Decimal representation of Vx
+    // in I, I+1, and I+2
+    void OP_Fx33();
 };
 
 #endif

@@ -593,3 +593,29 @@ void Chip8::OP_Fx29()
     // and offset it by the start address
     index = FONTSET_START_ADDRESS + (5 * digit);
 }
+
+void Chip8::OP_Fx33()
+{
+    // this stores a BCD (Binary Coded Decimal) representation in memory
+    // at I, I+1, and I+2
+    // for reference: https://en.wikipedia.org/wiki/Binary-coded_decimal
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+    uint8_t value = registers[Vx];
+
+    // Vx is an 8 bit value of maximum value of 255
+    // this means all we need to do to get the BCD value
+    // is to separate the values in the 1s, 10s, and 100s column
+    // and store them in memory
+    // with the 100s going to I, 10s to I+1, and 1s to I+1
+
+    // get the 1s place
+    memory[index + 2] = value % 10;
+    // dividing by ten is a quick way to remove the least sig digit
+    value /= 10;
+
+    // 10s place
+    memory[index + 1] = value % 10;
+
+    // 100s place
+    memory[index] = value % 10;
+}
