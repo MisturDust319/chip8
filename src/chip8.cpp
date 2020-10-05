@@ -619,3 +619,13 @@ void Chip8::OP_Fx33()
     // 100s place
     memory[index] = value % 10;
 }
+
+void Chip8::OP_Fx55()
+{
+    uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+
+    for (uint8_t i = 0; i < Vx; ++i)
+    {
+        memory[index + i] = registers[i];
+    }
+}

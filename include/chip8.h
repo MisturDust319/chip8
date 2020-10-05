@@ -122,7 +122,11 @@ public:
     void OP_Fx29();
     // LD B, Vx: store the Binary Coded Decimal representation of Vx
     // in I, I+1, and I+2
+    // with I being the most significant digit
     void OP_Fx33();
+    // LD [I], Vx: store registers V0 to Vx
+    // in the memory location starting at I
+    void OP_Fx55();
 };
 
 #endif
