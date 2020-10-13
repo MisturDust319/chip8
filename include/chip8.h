@@ -41,8 +41,24 @@ public:
     // a uniform int distribution will produce ints in a range [a,b]
     // we use [0,255]
     std::uniform_int_distribution<uint8_t> randByte;
-    
-    // OPC FUNCTIONS
+
+    // FUNCTION TABLES
+    // We maintain a handful of tables that are used to figure out which
+    // opcode function to execute
+    // One main table, and several smaller tables for special opcodes
+    // All tables hold function pointers
+    // and all are one element bigger than needed because it makes indexing easier
+    // (no need to alter the opcode to access the right table)
+    void (Chip8::*table [0xF + 1])(){ NULL };
+    void (Chip8::*table0 [0xE + 1])(){ NULL };
+    void (Chip8::*table8 [0xE + 1])(){ NULL };
+    void (Chip8::*tableE [0xE + 1])(){ NULL };
+    void (Chip8::*tableF [0x65 + 1])(){ NULL };
+
+    // CONSTRUCTORS
+    Chip8();
+
+    // TABLE FUNCTIONS
     // These are used to figure out which operation to execute
     // For opcodes beginning with 00E
     void Table0();
@@ -52,23 +68,7 @@ public:
     void TableE();
     // For opcodes
     void TableF();
-    void OP_NULL();
-
-    // FUNCTION TABLES
-    // We maintain a handful of tables that are used to figure out which
-    // opcode function to execute
-    // One main table, and several smaller tables for special opcodes
-    // All tables hold function pointers
-    // and all are one element bigger than needed because it makes indexing easier
-    // (no need to alter the opcode to access the right table)
-    // void (Chip8::*table [0xF + 1])(){&Chip8::OP_NULL};
-    // void (Chip8::*table0 [0xE + 1])(){&Chip8::OP_NULL};
-    // void (Chip8::*table8 [0xE + 1])(){&Chip8::OP_NULL};
-    // void (Chip8::*tableE [0xE + 1])(){&Chip8::OP_NULL};
-    // void (Chip8::*tableF [0x65 + 1])(){&Chip8::OP_NULL};
-
-    // CONSTRUCTORS
-    Chip8();
+    // a dummy null function to initialize the opcode function tables with
 
     // METHODS
     void loadROM(char const* filename);
