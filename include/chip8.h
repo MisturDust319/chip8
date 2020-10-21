@@ -35,12 +35,14 @@ public:
     // value to hold current opcode
     uint16_t opcode;
 
+
     // RNG values
     // a basic RNG generator, seeded with the system clock
     std::default_random_engine  randGen;
     // a uniform int distribution will produce ints in a range [a,b]
     // we use [0,255]
     std::uniform_int_distribution<uint8_t> randByte;
+
 
     // FUNCTION TABLES
     // We maintain a handful of tables that are used to figure out which
@@ -55,11 +57,14 @@ public:
     void (Chip8::*tableE [0xE + 1])(){ NULL };
     void (Chip8::*tableF [0x65 + 1])(){ NULL };
 
+
     // CONSTRUCTORS
     Chip8();
 
+
     // TABLE FUNCTIONS
     // These are used to figure out which operation to execute
+    
     // For opcodes beginning with 00E
     void Table0();
     // For opcodes beginning with 8
@@ -70,10 +75,19 @@ public:
     void TableF();
     // a dummy null function to initialize the opcode function tables with
 
-    // METHODS
+
+    // Load a ROM from disk into memory
+    // filename: a C string representing a file name
     void loadROM(char const* filename);
 
+    
+    // Execute a single cycle of activity on the CPU
+    // This includes fetching, decoding, and executing an instruction
+    void Cycle();
+
+
     // OPCODES
+
     // CLS: Clear the screen
     void OP_00E0();
     // RET: Return from a subroutine

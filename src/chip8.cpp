@@ -131,6 +131,36 @@ void Chip8::loadROM(char const* filename)
     }
 }
 
+
+void Chip8::Cycle()
+{
+    // Fetch the next instruction from memory
+    // each instruction is two bytes
+    // and is stored in two consecutive bytes in memory
+    opcode = (memory[pc] << 8u) | memory[pc + 1];
+
+    // increment the PC to the next instruction
+    pc += 2;
+
+    // decode and execute
+    // this is done by indexing the opcode function table
+    // with the opcode's first nibble
+    ((*this).*(table[(opcode & 0xF000u) >> 12u]))();
+
+    // decrement the delay timer if set
+    if (delayTimer > 0)
+    {
+        --delayTimer;
+    }
+
+    // decrement the sound timer if set
+    if (soundTimer > 0)
+    {
+        --soundTimer;
+    }
+}
+
+
 // TABLE FUNCTIONS
 void Chip8::Table0()
 {
