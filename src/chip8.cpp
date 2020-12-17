@@ -5,6 +5,7 @@
 #include <random>
 
 #include "chip8.h"
+#include "constants.h"
 
 // ROM DATA
 // the ROM is loaded into memory starting at memory address 0x200
@@ -38,8 +39,6 @@ uint8_t fontset[FONTSET_SIZE] =
     0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 };
 
-uint8_t VIDEO_WIDTH = 32;
-uint8_t VIDEO_HEIGHT = 64;
 
 Chip8::Chip8()
     : randGen(std::chrono::system_clock::now().time_since_epoch().count())
